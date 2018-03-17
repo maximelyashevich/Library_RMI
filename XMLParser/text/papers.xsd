@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://www.example.com/papers"
+            xmlns:tns="http://www.example.com/papers"
+            elementFormDefault="qualified">
+    <element name="papers">
+        <complexType>
+            <sequence>
+                <element ref="tns:paperEdition" minOccurs="1" maxOccurs="unbounded"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="paperEdition" type="tns:paperEdition"/>
+
+    <complexType name="paperEdition">
+        <sequence>
+            <element name="title" type="tns:title"/>
+            <element name="description" type="tns:description"/>
+            <element name="periodicity" type="tns:periodicity"/>
+            <element name="price" type="tns:price"/>
+        </sequence>
+        <attribute name="id" type="ID" use="required"/>
+        <attribute name="category" use="optional" default="newspaper">
+            <simpleType>
+                <restriction base="string">
+                    <enumeration value="newspaper"/>
+                    <enumeration value="magazine"/>
+                    <enumeration value="book"/>
+                </restriction>
+            </simpleType>
+        </attribute>
+    </complexType>
+
+    <simpleType name="title">
+        <restriction base="string">
+            <pattern value=".{2,145}"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="description">
+        <restriction base="string">
+            <pattern value=".{2,1045}"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="periodicity">
+        <restriction base="positiveInteger">
+            <minInclusive value="1"/>
+            <maxInclusive value="8"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="category">
+        <restriction base="string">
+            <enumeration value="newspaper"/>
+            <enumeration value="magazine"/>
+            <enumeration value="book"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="price">
+        <restriction base="double">
+            <minInclusive value="0.0"/>
+            <maxInclusive value="100.0"/>
+        </restriction>
+    </simpleType>
+</schema>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.example.com/genrePaper" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="genrePapers" type="gen:genrePapersType" xmlns:gen="http://www.example.com/genrePaper"/>
+  <xs:complexType name="genrePapersType">
+    <xs:sequence>
+      <xs:element type="gen:genrePaperType" name="genrePaper" maxOccurs="unbounded" minOccurs="0" xmlns:gen="http://www.example.com/genrePaper"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="genrePaperType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="paperEditionID"/>
+      <xs:element type="xs:string" name="genreID"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="id"/>
+  </xs:complexType>
+</xs:schema>

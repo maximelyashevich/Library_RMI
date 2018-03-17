@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<genrePapers xmlns="http://www.example.com/genrePaper">
+    <genrePaper id="ID-1">
+        <paperEditionID>ID-1</paperEditionID>
+        <genreID>ID-1</genreID>
+    </genrePaper>
+    <genrePaper id="ID-2">
+        <paperEditionID>ID-1</paperEditionID>
+        <genreID>ID-3</genreID>
+    </genrePaper>
+    <genrePaper id="ID-3">
+        <paperEditionID>ID-2</paperEditionID>
+        <genreID>ID-2</genreID>
+    </genrePaper>
+    <genrePaper id="ID-4">
+        <paperEditionID>ID-2</paperEditionID>
+        <genreID>ID-6</genreID>
+    </genrePaper>
+    <genrePaper id="ID-5">
+        <paperEditionID>ID-3</paperEditionID>
+        <genreID>ID-2</genreID>
+    </genrePaper>
+    <genrePaper id="ID-6">
+        <paperEditionID>ID-3</paperEditionID>
+        <genreID>ID-4</genreID>
+    </genrePaper>
+    <genrePaper id="ID-7">
+        <paperEditionID>ID-3</paperEditionID>
+        <genreID>ID-7</genreID>
+    </genrePaper>
+    <genrePaper id="ID-8">
+        <paperEditionID>ID-4</paperEditionID>
+        <genreID>ID-2</genreID>
+    </genrePaper>
+    <genrePaper id="ID-9">
+        <paperEditionID>ID-5</paperEditionID>
+        <genreID>ID-3</genreID>
+    </genrePaper>
+    <genrePaper id="ID-10">
+        <paperEditionID>ID-6</paperEditionID>
+        <genreID>ID-5</genreID>
+    </genrePaper>
+    <genrePaper id="ID-11">
+        <paperEditionID>ID-7</paperEditionID>
+        <genreID>ID-3</genreID>
+    </genrePaper>
+    <genrePaper id="ID-12">
+        <paperEditionID>ID-8</paperEditionID>
+        <genreID>ID-1</genreID>
+    </genrePaper>
+    <genrePaper id="ID-13">
+        <paperEditionID>ID-9</paperEditionID>
+        <genreID>ID-3</genreID>
+    </genrePaper>
+    <genrePaper id="ID-14">
+        <paperEditionID>ID-10</paperEditionID>
+        <genreID>ID-3</genreID>
+    </genrePaper>
+    <genrePaper id="ID-15">
+        <paperEditionID>ID-11</paperEditionID>
+        <genreID>ID-3</genreID>
+    </genrePaper>
+    <genrePaper id="ID-16">
+        <paperEditionID>ID-12</paperEditionID>
+        <genreID>ID-3</genreID>
+    </genrePaper>
+    <genrePaper id="ID-17">
+        <paperEditionID>ID-13</paperEditionID>
+        <genreID>ID-3</genreID>
+    </genrePaper>
+</genrePapers>

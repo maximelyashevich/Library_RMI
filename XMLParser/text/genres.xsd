@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.example.com/genres" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="genres" type="gen:genresType" xmlns:gen="http://www.example.com/genres"/>
+  <xs:complexType name="genre">
+    <xs:sequence>
+      <xs:element name="name">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value=".{2,1045}"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="id" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="genresType">
+    <xs:sequence>
+      <xs:element type="gen:genre" name="genre" maxOccurs="unbounded" minOccurs="0" xmlns:gen="http://www.example.com/genres"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<genres xmlns="http://www.example.com/genres">
+    <genre id="ID-1">
+        <name>Для мужчин</name>
+    </genre>
+    <genre id="ID-2">
+        <name>Для женщин</name>
+    </genre>
+    <genre id="ID-3">
+        <name>Автомобили</name>
+    </genre>
+    <genre id="ID-4">
+        <name>Мода</name>
+    </genre>
+    <genre id="ID-5">
+        <name>Дом. Семья. Быт</name>
+    </genre>
+    <genre id="ID-6">
+        <name>Кулинария</name>
+    </genre>
+    <genre id="ID-7">
+        <name>Природа</name>
+    </genre>
+    <genre id="ID-8">
+        <name>Политика</name>
+    </genre>
+</genres>
