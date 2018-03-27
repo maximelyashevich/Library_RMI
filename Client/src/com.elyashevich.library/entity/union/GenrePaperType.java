@@ -36,8 +36,8 @@ import java.util.Objects;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "genrePaperType", propOrder = {
-    "paperEditionID",
-    "genreID"
+        "genreID",
+        "paperEditionID"
 })
 @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2018-03-11T03:55:35+03:00", comments = "JAXB RI v2.2.8-b130911.1802")
 public class GenrePaperType {
@@ -143,14 +143,13 @@ public class GenrePaperType {
         if (this == o) return true;
         if (!(o instanceof GenrePaperType)) return false;
         GenrePaperType that = (GenrePaperType) o;
-        return Objects.equals(paperEditionID, that.paperEditionID) &&
-                Objects.equals(genreID, that.genreID);
+        return Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(paperEditionID, genreID);
+        return Objects.hash(id);
     }
 
     @Override

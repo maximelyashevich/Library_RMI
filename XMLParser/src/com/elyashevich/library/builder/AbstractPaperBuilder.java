@@ -18,9 +18,6 @@ public abstract class AbstractPaperBuilder {
         genres = new LinkedHashSet<>();
         genrePaperTypes = new LinkedHashSet<>();
     }
-    public AbstractPaperBuilder(Set<PaperEdition> paperEditions) {
-        this.paperEditions = paperEditions;
-    }
     public Set<PaperEdition> getPapers() {
         return Collections.unmodifiableSet(paperEditions);
     }

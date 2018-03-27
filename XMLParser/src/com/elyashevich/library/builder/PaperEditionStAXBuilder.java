@@ -4,17 +4,24 @@ package com.elyashevich.library.builder;
 import com.elyashevich.library.entity.genre.Genre;
 import com.elyashevich.library.entity.paper.PaperEdition;
 import com.elyashevich.library.entity.union.GenrePaperType;
+import org.xml.sax.SAXException;
 
+import javax.xml.XMLConstants;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import javax.xml.transform.Source;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class PaperEditionStAXBuilder extends AbstractPaperBuilder{
+public class PaperEditionStAXBuilder extends AbstractPaperBuilder {
     private XMLInputFactory inputFactory;
 
     public PaperEditionStAXBuilder() {
@@ -27,14 +34,29 @@ public class PaperEditionStAXBuilder extends AbstractPaperBuilder{
         FileInputStream inputStream = null;
         XMLStreamReader reader;
         String name;
+        String language = XMLConstants.W3C_XML_SCHEMA_NS_URI;
+        String schemaName = "C:\\Users\\Максим\\Desktop\\Programming\\Java\\Library\\text\\papers.xsd";
+        SchemaFactory factory = SchemaFactory.newInstance(language);
+        File schemaLocation = new File(schemaName);
+        Schema schema = null;
+        try {
+            schema = factory.newSchema(schemaLocation);
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
+        assert schema != null;
+        Validator validator = schema.newValidator();
+        Source source = new StreamSource(new File(fileName));
+        isValid(validator, source);
         try {
             inputStream = new FileInputStream(new File(fileName));
+            paperEditions.clear();
             reader = inputFactory.createXMLStreamReader(inputStream);
             while (reader.hasNext()) {
                 int type = reader.next();
                 if (type == XMLStreamConstants.START_ELEMENT) {
                     name = reader.getLocalName();
-                    if (PaperEditionEnum.valueOf(name.replace("-","_").toUpperCase())==PaperEditionEnum.PAPEREDITION) {
+                    if (PaperEditionEnum.valueOf(name.replace("-", "_").toUpperCase()) == PaperEditionEnum.PAPEREDITION) {
                         PaperEdition paperEdition = buildEdition(reader);
                         paperEditions.add(paperEdition);
                     }
@@ -58,14 +80,29 @@ public class PaperEditionStAXBuilder extends AbstractPaperBuilder{
         FileInputStream inputStream = null;
         XMLStreamReader reader;
         String name;
+        String language = XMLConstants.W3C_XML_SCHEMA_NS_URI;
+        String schemaName = "C:\\Users\\Максим\\Desktop\\Programming\\Java\\Library\\text\\genres.xsd";
+        SchemaFactory factory = SchemaFactory.newInstance(language);
+        File schemaLocation = new File(schemaName);
+        Schema schema = null;
+        try {
+            schema = factory.newSchema(schemaLocation);
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
+        assert schema != null;
+        Validator validator = schema.newValidator();
+        Source source = new StreamSource(new File(fileName));
+        isValid(validator, source);
         try {
             inputStream = new FileInputStream(new File(fileName));
             reader = inputFactory.createXMLStreamReader(inputStream);
+            genres.clear();
             while (reader.hasNext()) {
                 int type = reader.next();
                 if (type == XMLStreamConstants.START_ELEMENT) {
                     name = reader.getLocalName();
-                    if (GenreEnum.valueOf(name.replace("-","_").toUpperCase())==GenreEnum.GENRE) {
+                    if (GenreEnum.valueOf(name.replace("-", "_").toUpperCase()) == GenreEnum.GENRE) {
                         Genre genre = buildGenre(reader);
                         genres.add(genre);
                     }
@@ -89,14 +126,29 @@ public class PaperEditionStAXBuilder extends AbstractPaperBuilder{
         FileInputStream inputStream = null;
         XMLStreamReader reader;
         String name;
+        String language = XMLConstants.W3C_XML_SCHEMA_NS_URI;
+        String schemaName = "C:\\Users\\Максим\\Desktop\\Programming\\Java\\Library\\text\\genre_papers.xsd";
+        SchemaFactory factory = SchemaFactory.newInstance(language);
+        File schemaLocation = new File(schemaName);
+        Schema schema = null;
+        try {
+            schema = factory.newSchema(schemaLocation);
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
+        assert schema != null;
+        Validator validator = schema.newValidator();
+        Source source = new StreamSource(new File(fileName));
+        isValid(validator, source);
         try {
             inputStream = new FileInputStream(new File(fileName));
             reader = inputFactory.createXMLStreamReader(inputStream);
+            genrePaperTypes.clear();
             while (reader.hasNext()) {
                 int type = reader.next();
                 if (type == XMLStreamConstants.START_ELEMENT) {
                     name = reader.getLocalName();
-                    if (GenrePaperEnum.valueOf(name.replace("-","_").toUpperCase())==GenrePaperEnum.GENREPAPER) {
+                    if (GenrePaperEnum.valueOf(name.replace("-", "_").toUpperCase()) == GenrePaperEnum.GENREPAPER) {
                         GenrePaperType genrePaperType = buildGenrePaper(reader);
                         genrePaperTypes.add(genrePaperType);
                     }
@@ -112,6 +164,16 @@ public class PaperEditionStAXBuilder extends AbstractPaperBuilder{
             } catch (IOException e) {
                 System.err.println(e);
             }
+        }
+    }
+
+    private void isValid(Validator validator, Source source) {
+        try {
+            validator.validate(source);
+            System.out.println("XMLDataAccessObject Created");
+        } catch (SAXException | IOException e) {
+            System.out.println("XML file is not valid.");
+            throw new RuntimeException(e);
         }
     }
 
@@ -143,7 +205,7 @@ public class PaperEditionStAXBuilder extends AbstractPaperBuilder{
                     break;
                 case XMLStreamConstants.END_ELEMENT:
                     name = reader.getLocalName();
-                    if (PaperEditionEnum.valueOf(name.replace("-","_").toUpperCase()) == PaperEditionEnum.PAPEREDITION) {
+                    if (PaperEditionEnum.valueOf(name.replace("-", "_").toUpperCase()) == PaperEditionEnum.PAPEREDITION) {
                         return paperEdition;
                     }
                     break;
@@ -173,7 +235,7 @@ public class PaperEditionStAXBuilder extends AbstractPaperBuilder{
                     break;
                 case XMLStreamConstants.END_ELEMENT:
                     name = reader.getLocalName();
-                    if (GenrePaperEnum.valueOf(name.replace("-","_").toUpperCase()) == GenrePaperEnum.GENREPAPER) {
+                    if (GenrePaperEnum.valueOf(name.replace("-", "_").toUpperCase()) == GenrePaperEnum.GENREPAPER) {
                         return genrePaperType;
                     }
                     break;
@@ -200,7 +262,7 @@ public class PaperEditionStAXBuilder extends AbstractPaperBuilder{
                     break;
                 case XMLStreamConstants.END_ELEMENT:
                     name = reader.getLocalName();
-                    if (GenreEnum.valueOf(name.replace("-","_").toUpperCase()) == GenreEnum.GENRE) {
+                    if (GenreEnum.valueOf(name.replace("-", "_").toUpperCase()) == GenreEnum.GENRE) {
                         return genre;
                     }
                     break;

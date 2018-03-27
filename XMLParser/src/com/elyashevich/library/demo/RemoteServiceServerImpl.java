@@ -17,15 +17,13 @@ public class RemoteServiceServerImpl {
     public static void main(String... args) {
         final Registry registry;
         try {
-            registry = LocateRegistry.createRegistry(4398);
+            registry = LocateRegistry.createRegistry(4409);
            // System.out.println("Registry created.");
         } catch (RemoteException e) {
             System.err.println(e.getMessage());
             throw new RuntimeException(e);
         }
-
         RemoteService service = new RemoteServiceImpl();
-
         Remote stub = null;
         try {
             stub = UnicastRemoteObject.exportObject(service, 0);

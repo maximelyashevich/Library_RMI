@@ -254,17 +254,13 @@ public class PaperEdition implements Serializable, Cloneable{
         if (this == o) return true;
         if (!(o instanceof PaperEdition)) return false;
         PaperEdition that = (PaperEdition) o;
-        return periodicity == that.periodicity &&
-                Double.compare(that.price, price) == 0 &&
-                Objects.equals(title, that.title) &&
-                Objects.equals(description, that.description) &&
-                Objects.equals(category, that.category);
+        return Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(title, description, periodicity, price, category);
+        return Objects.hash(id);
     }
 
     @Override

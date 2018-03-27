@@ -3,7 +3,6 @@ package com.elyashevich.library.view;
 import com.elyashevich.library.demo.RemoteServiceClient;
 import com.elyashevich.library.entity.genre.Genre;
 import com.elyashevich.library.entity.paper.PaperEdition;
-import com.elyashevich.library.exception.DAOTechnicalException;
 import com.elyashevich.library.util.IdGenerator;
 import com.elyashevich.library.util.TextConstant;
 import javafx.fxml.FXML;
@@ -60,13 +59,13 @@ public class PaperOverviewController {
             try {
                 StringBuilder stringBuilder = new StringBuilder();
                 //System.out.println(main.defineRemoteService().findByPaperIDGenres(IdGenerator.defineID(paperEdition.getId())));
-                System.out.println("IDDDD:"+paperEdition.getId());
-                System.out.println("**************");
-                    for (Genre genre : main.defineRemoteService().findByPaperIDGenres(Long.parseLong(paperEdition.getId()))) {
-                        stringBuilder.append(genre.getName()).append(TextConstant.NEW_LINE);
+                    for (Genre genre : main.defineRemoteService().findByPaperIDGenres(IdGenerator.defineID(paperEdition.getId()))) {
+                        if (genre!=null) {
+                            stringBuilder.append(genre.getName()).append(TextConstant.NEW_LINE);
+                        }
                     }
-                genresArea.setText(stringBuilder.toString());
-            } catch (DAOTechnicalException | RemoteException e) {
+                    genresArea.setText(stringBuilder.toString());
+            } catch (RemoteException e) {
                 exceptionAlert(TITLE_ERROR, TITLE_ERROR, e.getMessage());
                 System.exit(0);
             }
@@ -82,25 +81,20 @@ public class PaperOverviewController {
 
     @FXML
     private void handleSearch() {
-        String searchData = searchField.getText()!=null?searchField.getText():"";
-            try {
-                System.out.println(main.defineRemoteService().findByDescriptionPapers(searchData));
-                main.getPaperEditionData().clear();
-                main.getPaperEditionData().addAll(main.defineRemoteService().findByDescriptionPapers(searchData));
-            } catch (DAOTechnicalException| RemoteException e) {
-                exceptionAlert(TITLE_ERROR, TITLE_ERROR, e.getMessage());
-                System.exit(0);
-            }
+        String searchData = searchField.getText() != null ? searchField.getText() : "";
+        try {
+            System.out.println(main.defineRemoteService().findByDescriptionPapers(searchData));
+            main.getPaperEditionData().clear();
+            main.getPaperEditionData().addAll(main.defineRemoteService().findByDescriptionPapers(searchData));
+        } catch (RemoteException e) {
+            exceptionAlert(TITLE_ERROR, TITLE_ERROR, e.getMessage());
+            System.exit(0);
+        }
     }
 
     @FXML
     private void handleNewPerson() {
         PaperEdition tempPaperEdition = new PaperEdition();
-      /*  try {
-            tempPaperEdition.setId(IdGenerator.generatePaperId((ArrayList<PaperEdition>) main.defineRemoteService().findAllPapers()));
-        } catch (DAOTechnicalException | RemoteException e) {
-            e.printStackTrace();
-        }*/
         boolean okClicked = main.showPersonEditDialog(tempPaperEdition);
         if (okClicked) {
             System.out.println(main.getPaperEdition());
@@ -130,7 +124,7 @@ public class PaperOverviewController {
         if (selectedIndex >= 0) {
             try {
                 main.defineRemoteService().deleteByIdPapers(IdGenerator.defineID(paperTable.getItems().get(selectedIndex).getId()));
-            } catch (DAOTechnicalException|RemoteException e) {
+            } catch (RemoteException e) {
                 exceptionAlert(TITLE_ERROR, TITLE_ERROR, e.getMessage());
                 System.exit(0);
             }

@@ -2,7 +2,6 @@ package com.elyashevich.library.view;
 
 import com.elyashevich.library.entity.genre.Genre;
 import com.elyashevich.library.entity.paper.PaperEdition;
-import com.elyashevich.library.exception.DAOTechnicalException;
 import com.elyashevich.library.service.RemoteService;
 import com.elyashevich.library.util.IdGenerator;
 import com.elyashevich.library.util.TextConstant;
@@ -134,7 +133,7 @@ public class PaperEditDialogController {
                 }
 
                 listView.setCellFactory(CheckBoxListCell.forListView(Item::onProperty));
-            } catch (DAOTechnicalException | RemoteException e) {
+            } catch (RemoteException e) {
                 exceptionAlert(TITLE_ERROR, TITLE_ERROR, e.getMessage());
             }
         }
@@ -211,6 +210,7 @@ public class PaperEditDialogController {
                         }
                     }
                     if (paperEdition.getId()==null) {
+                        System.out.println(paperEdition);
                         paperEdition = service.createPapers(paperEdition);
                         System.out.println("New id: "+paperEdition.getId());
                     } else {
@@ -219,10 +219,9 @@ public class PaperEditDialogController {
                     service.updateGenrePaper(paperEdition, genresName);
                     identifyEdition(paperEdition);
                 }
-            } catch (DAOTechnicalException| RemoteException e) {
+            } catch (RemoteException e) {
                 e.printStackTrace();
             }
-
 
             okClicked = true;
             dialogStage.close();

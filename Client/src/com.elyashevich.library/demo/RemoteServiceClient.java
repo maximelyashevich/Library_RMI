@@ -1,8 +1,7 @@
 package com.elyashevich.library.demo;
 
-import com.elyashevich.library.service.RemoteService;
 import com.elyashevich.library.entity.paper.PaperEdition;
-import com.elyashevich.library.exception.DAOTechnicalException;
+import com.elyashevich.library.service.RemoteService;
 import com.elyashevich.library.view.PaperEditDialogController;
 import com.elyashevich.library.view.PaperOverviewController;
 import javafx.application.Application;
@@ -35,7 +34,7 @@ public class RemoteServiceClient extends Application {
         Registry registry = null;
         try {
              //registry = LocateRegistry.getRegistry("192.168.43.34", 4396);
-            registry = LocateRegistry.getRegistry("localhost", 4399);
+            registry = LocateRegistry.getRegistry("localhost", 4409);
         } catch (RemoteException e) {
             System.err.println(e.getMessage());
         }
@@ -49,7 +48,7 @@ public class RemoteServiceClient extends Application {
         }
         try {
             paperEditionData.addAll(service.findAllPapers());
-        } catch (DAOTechnicalException | RemoteException e) {
+        } catch (RemoteException e) {
             e.printStackTrace();
         }
     }
@@ -138,7 +137,6 @@ public class RemoteServiceClient extends Application {
             return false;
         }
     }
-
 
     public Stage getPrimaryStage() {
         return primaryStage;
